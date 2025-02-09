@@ -19,3 +19,229 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
+.page-title-box {
+  display: none !important;
+}
+
+.expanded-sidebar {
+  width: 250px;
+  min-height: 100vh;
+  transition: width 0.3s ease-in-out;
+}
+
+/* Sidebar Colapsado */
+.collapsed-sidebar {
+  width: 80px;
+  min-height: 100vh;
+  transition: width 0.3s ease-in-out;
+}
+
+
+.toggle-btn {
+  width: 100%;
+  text-align: center;
+}
+
+.nav-link {
+  color: white;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  transition: background 0.2s;
+}
+
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+}
+.nav-link.active {
+  font-weight: bold;
+}
+
+
+.book-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Efeito de hover para dar mais modernidade */
+.book-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(135deg, #f8f9fa, #ffffff);
+}
+
+.book-image {
+  height: 250px;
+  width: 100%;
+  object-fit: cover;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.book-cover {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0;
+  padding: 12px;
+  overflow: hidden;
+}
+
+/* Efeito zoom ao passar o mouse sobre a imagem */
+.book-card:hover .book-image {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+.book-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #333;
+  transition: color 0.3s ease;
+  text-overflow: ellipsis;
+}
+
+.book-title:hover {
+  color: #0056b3;
+  text-shadow: 1px 1px 8px rgba(0, 86, 179, 0.3);
+}
+
+
+/* Texto autor mais leve */
+.book-author {
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 8px;
+}
+
+/* Disponibilidade estilizada */
+.book-availability {
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+/* Botão com efeito glow */
+.btn-sm {
+  font-size: 14px;
+  padding: 12px;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+/* Efeito neon no botão ao passar o mouse */
+.btn-sm:hover {
+  background-color: #0056b3;
+  box-shadow: 0 0 10px rgba(0, 86, 179, 0.5);
+  transform: translateY(-2px);
+}
+
+
+/* Layout mais fluido */
+@media (max-width: 768px) {
+  .book-card {
+    border-radius: 10px;
+  }
+  .book-image {
+    height: 200px;
+  }
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.pagination {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  gap: 8px;
+}
+
+.pagination li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  border: 1px solid #007bff;
+  color: #007bff;
+  background: white;
+}
+
+.pagination li a {
+  text-decoration: none;
+  color: inherit;
+  font-size: 16px;
+}
+
+
+.pagination li:hover {
+  background: #007bff;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.pagination .active {
+  background: #007bff;
+  color: white;
+}
+
+.pagination .disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination .prev,
+.pagination .next {
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 22px;
+  background: #e9ecef;
+  color: #495057;
+  border: none;
+  transition: background 0.3s ease;
+}
+
+.pagination .prev:hover,
+.pagination .next:hover {
+  background: #007bff;
+  color: white;
+}
+
+
+.page-item {
+  list-style: none;
+  padding: 2px 12px;
+  height: 31.5px;
+  width: 31.5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2px;
+}
