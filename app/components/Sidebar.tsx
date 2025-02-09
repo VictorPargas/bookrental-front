@@ -150,7 +150,7 @@ export default function Sidebar() {
                         pathname={pathname} 
                     />
                     <SidebarItem 
-                        href="/user" 
+                        href="/rentals" 
                         icon={<BiBook size={22} />} 
                         text="Locações" 
                         isCollapsed={isCollapsed} 
