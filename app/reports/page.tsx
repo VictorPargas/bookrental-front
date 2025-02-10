@@ -44,27 +44,27 @@ export default function MostLoanedBooksDashboard() {
       const rentals: Rental[] = rentalsResponse.data;
       const books: Book[] = booksResponse.data;
 
-      // Contagem de livros alugados
+
       const bookCount = rentals.reduce<Record<number, number>>((acc, rental) => {
         acc[rental.bookId] = (acc[rental.bookId] || 0) + 1;
         return acc;
       }, {});
 
-      // Contagem de usuários com mais empréstimos
+
       const userCount = rentals.reduce<Record<string, number>>((acc, rental) => {
         acc[rental.userName] = (acc[rental.userName] || 0) + 1;
         return acc;
       }, {});
 
-      // Ordenar pelos mais alugados
+
       const sortedBooks = Object.entries(bookCount)
         .sort((a, b) => b[1] - a[1])
-        .slice(0, 5); // Top 5 livros
+        .slice(0, 5); 
 
-      // Ordenar pelos usuários com mais empréstimos
+
       const sortedUsers = Object.entries(userCount)
         .sort((a, b) => b[1] - a[1])
-        .slice(0, 5); // Top 5 usuários
+        .slice(0, 5); 
 
       const bookChartData: ChartData[] = sortedBooks.map(([bookId, count]) => {
         const book = books.find((b) => b.id === parseInt(bookId));

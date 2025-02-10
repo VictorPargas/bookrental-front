@@ -71,7 +71,6 @@ export default function RentalsManagement() {
     }
   };
 
-  // Mapeia os nomes dos usuários e títulos dos livros para cada locação
   const enrichedRentals = rentals.map((rental) => {
     const user = users.find((u) => u.name === rental.userName);
     const book = books.find((b) => b.id === rental.bookId);

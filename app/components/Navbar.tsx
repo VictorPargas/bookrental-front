@@ -7,7 +7,7 @@ import { Navbar, Nav, Container } from "react-bootstrap";
 
 export default function NavigationBar() {
   const [expanded, setExpanded] = useState(false);
-  const pathname = usePathname(); // Captura a URL atual para corrigir o comportamento do menu
+  const pathname = usePathname();  
 
   return (
     <Navbar bg="dark" variant="dark" expand="md" expanded={expanded} className="mb-4">

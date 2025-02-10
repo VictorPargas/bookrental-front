@@ -112,7 +112,7 @@ export default function BooksManagement() {
     if (selectedBook) {
       const bookPayload = {
         title: selectedBook.title,
-        isbn: selectedBook.isbn || "", // Adicione campo de ISBN na modal se necessário
+        isbn: selectedBook.isbn || "", 
         yearPublished: selectedBook.year,
         quantityAvailable: selectedBook.quantity,
         publisherId: selectedBook.publisherId,
@@ -121,17 +121,17 @@ export default function BooksManagement() {
   
       try {
         if (isEditing) {
-          // Atualiza o livro localmente (pode ajustar se houver um endpoint de update)
+        
           setBooks((prevBooks) =>
             prevBooks.map((book) => (book.id === selectedBook.id ? selectedBook : book))
           );
           toast.success("Livro atualizado com sucesso!");
         } else {
-          // Criação de novo livro via API
+
           await api.createBook(bookPayload);
           toast.success("Livro adicionado com sucesso!");
   
-          // Atualizar a lista de livros após adicionar
+
           fetchBooks();
         }
         handleCloseModal();

@@ -48,9 +48,9 @@ export function exibirToastWarn(mensagem: string, config?: ToastOptions) {
     draggable: true,
     progress: undefined,
     style: {
-      backgroundColor: "#fff3cd",  // Cor de alerta suave
-      color: "#856404",            // Cor do texto mais escura
-      border: "1px solid #ffeeba", // Borda destacando o toast
+      backgroundColor: "#fff3cd", 
+      color: "#856404",          
+      border: "1px solid #ffeeba",
       borderRadius: "10px",
       boxShadow: "0 5px 10px rgba(0, 0, 0, 0.1)",
       fontSize: "16px",

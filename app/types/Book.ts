@@ -2,11 +2,11 @@ export interface Book {
   id: number;
   title: string;
   isbn: string;
-  year: number;  // Ano de publicação
-  quantity: number;  // Quantidade disponível
-  publisher: string;  // Nome da editora
-  authors: string;  // Nome(s) do(s) autor(es), convertido de array para string
-  image?: string;  // URL da imagem do livro (opcional)
+  year: number; 
+  quantity: number;  
+  publisher: string; 
+  authors: string;  
+  image?: string;  
   publisherId?: number;
   authorIds?: number[];
   isAvailable?: boolean;
@@ -54,7 +54,6 @@ export interface ModalBookRentalProps {
   book: Book | null;
 } 
 
-// Tipo para a resposta da requisição Axios
 export interface AxiosBookResponse {
   data: BookApiResponse[];
 } 

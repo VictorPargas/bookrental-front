@@ -11,9 +11,9 @@ export default function Home() {
     const token = localStorage.getItem('accessToken');
 
     if (token) {
-      router.push('/books');  // Redireciona para /books se o token existir
+      router.push('/books'); 
     } else {
-      router.push('/auth');   // Redireciona para /auth se não estiver autenticado
+      router.push('/auth');   
     }
   }, [router]);
 

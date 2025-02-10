@@ -16,15 +16,15 @@ export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   if (!token && !publicRoutes.includes(pathname)) {
-    return NextResponse.redirect(new URL('/auth', request.url));  // Redireciona para /auth se não autenticado
+    return NextResponse.redirect(new URL('/auth', request.url));   
   }
 
   if (token && publicRoutes.includes(pathname)) {
-    return NextResponse.redirect(new URL('/books', request.url));  // Redireciona para /books se já autenticado
+    return NextResponse.redirect(new URL('/books', request.url));  
   }
 
   if (adminRoutes.includes(pathname) && userProfile !== 'Administrador') {
-    return NextResponse.redirect(new URL('/books', request.url));  // Restringe acesso de admins
+    return NextResponse.redirect(new URL('/books', request.url));  
   }
 
   return NextResponse.next();

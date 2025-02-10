@@ -31,8 +31,8 @@ export default function RootLayout({ children }: Props) {
       setIsMobile(window.innerWidth <= 768);
     };
 
-    handleResize(); // Verifica o tamanho na montagem do componente
-    window.addEventListener('resize', handleResize); // Atualiza quando o tamanho da tela muda
+    handleResize(); 
+    window.addEventListener('resize', handleResize); 
 
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -79,10 +79,10 @@ export default function RootLayout({ children }: Props) {
               className="flex-grow-1 p-3"
               style={{
                 marginLeft: isMobile 
-                  ? '0' // No mobile, o conteúdo ocupa toda a largura
+                  ? '0'
                   : isSidebarOpen 
-                    ? '280px' // Sidebar expandida no desktop
-                    : '80px'  // Sidebar colapsada no desktop
+                    ? '280px' 
+                    : '80px'  
               }}
             >
               {children}
