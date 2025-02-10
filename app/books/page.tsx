@@ -95,7 +95,7 @@ export default function Books() {
   };
 
   return (
-    <div className="container mt-5">
+    <div className="container-fluid mt-5">
       <motion.h1 className="mb-4 text-center fw-bold d-flex align-items-center justify-content-center gap-2">
         <span role="img" aria-label="book">📚</span> Biblioteca Online
       </motion.h1>

@@ -77,7 +77,7 @@ export default function MyRentals() {
   };
 
   return (
-    <div className="container mt-5">
+    <div className="container-fluid mt-5">
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
 
       <h2 className="text-center fw-bold mb-4">
