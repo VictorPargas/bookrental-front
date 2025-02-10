@@ -7,7 +7,7 @@ const publicRoutes = [
 ];
 
 const adminRoutes = [
-  '/manager', '/company', '/payment/my-payments',
+  '/manager',
 ];
 
 export function middleware(request: NextRequest) {
@@ -32,10 +32,9 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/', '/auth', '/books', '/scheduling', '/auth/create',
+    '/', '/auth', '/books', '/auth/create',
     '/auth/forgot-password', '/auth/confirm-email', '/manager',
     '/company', '/legal/terms', '/privacy/policy', 
-    '/privacy/policies/cookies', '/payment/pricing-plans',
-    '/payment/my-payments', '/payment/success',
+    '/privacy/policies/cookies',
   ],
 };

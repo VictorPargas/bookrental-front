@@ -1,0 +1,12 @@
+services:
+  nextjs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: prod-livrariateste
+    ports:
+      - "6500:6500"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_FRONT_URL=https://worldstudio.com.br
+      - NEXT_PUBLIC_API_URL=https://api.worldstudio.com.br

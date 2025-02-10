@@ -5,14 +5,16 @@ import {
   ModalHeader,
   ModalFooter,
   Col,
+  FormGroup,
 } from 'react-bootstrap'
 import { FormHandles } from '@unform/core'
 import { Form } from '@unform/web'
 import { load, } from '@/app/components/Loading'
-import { exibirErrorCatch, exibirToastSuccess } from '@/app/utils/alert'
+import { exibirToastSuccess } from '@/app/utils/alert'
 import { validarErroFormCreate } from './validar-erro-form'
 import api from '@/app/utils/xhr'
 import InputUnform from '@/app/components/unform/InputUnform'
+import { toast } from 'react-toastify'
 
 interface Props {
   show: boolean
@@ -29,12 +31,12 @@ export function ModalCreate({ show, closeModal }: Props) {
       formRef.current?.setErrors({})
       await validarErroFormCreate(dados)
 
-      await api.createUser(dados)
+      await api.registerUser(dados)
 
       exibirToastSuccess('Usuário cadastrado com sucesso')
       closeModal()
-    } catch (error) {
-      exibirErrorCatch(error, formRef)
+    } catch {
+      toast.error("Erro")
     } finally {
       load.hide()
     }
@@ -49,7 +51,12 @@ export function ModalCreate({ show, closeModal }: Props) {
         </div>
       </ModalHeader>
       <ModalBody>
-        <Form ref={formRef} onSubmit={handleCriate}>
+        <Form 
+          ref={formRef}
+          onSubmit={handleCriate} 
+          placeholder="" 
+          onPointerEnterCapture={null}
+          onPointerLeaveCapture={null}>
           <FormGroup className="form-outline mb-4">
             <Col col={12}>
               <InputUnform

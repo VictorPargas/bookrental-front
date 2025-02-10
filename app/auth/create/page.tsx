@@ -10,7 +10,6 @@ import { load } from '@/app/components/Loading'
 import api from "../../utils/xhr";  
 import Cookies from 'js-cookie'  
 import { exibirToastSuccess, exibirErrorCatch, exibirToastError } from '@/app/utils/alert'
-import { validarErroFormCreate } from './validar-erro-form'
 import InputUnform from '@/app/components/unform/InputUnform'
 
 interface DataForm {
@@ -36,9 +35,6 @@ export default function Create() {
         ...dados,
         phone: dados?.phone?.replace(/\D/g, ''),  
       }
-
-      await validarErroFormCreate(dataFormated)
-      formRef.current?.setErrors({})
 
       const response = await api.registerUser(dataFormated)
       const { tokens: { accessToken } } = response.data
