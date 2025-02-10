@@ -46,10 +46,9 @@ export default function ModalBookRental({ show, onHide, book }: ModalBookRentalP
     const rentalData = {
       userId: userId,
       bookId: book?.id,
-      dueDate: expectedReturnDate.toISOString(), // Apenas a data de devolução é enviada
+      dueDate: expectedReturnDate.toISOString(),
     };
 
-    console.log("rentalData", rentalData);
 
      try {
        await api.registerRental(rentalData);
@@ -67,7 +66,7 @@ export default function ModalBookRental({ show, onHide, book }: ModalBookRentalP
     setExpectedReturnDate(null);
   };
 
-  const progress = (step / 2) * 100;  // Apenas duas etapas agora
+  const progress = (step / 2) * 100; 
 
   return (
     <Modal show={show} onHide={onHide} centered size="lg" className="rounded-modal">
@@ -111,7 +110,7 @@ export default function ModalBookRental({ show, onHide, book }: ModalBookRentalP
               <DatePicker
                 selected={expectedReturnDate}
                 onChange={(date) => setExpectedReturnDate(date)}
-                minDate={new Date()} // Não permite selecionar datas passadas
+                minDate={new Date()}
                 className="form-control"
                 dateFormat="dd/MM/yyyy"
               />

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { Card, Button, Row, Col, Form, Badge, InputGroup } from "react-bootstrap";
 import { BsFilter, BsSearch } from "react-icons/bs";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Book, BookApiResponse } from "@/app/types/Book";
 import { motion } from "framer-motion";
@@ -35,7 +35,6 @@ export default function Books() {
     const fetchBooks = async () => {
       try {
         const response = await api.getAllBooks();
-        console.log("response", response);
         const booksData: Book[] = response.data.map((book: BookApiResponse) => ({
           id: book.id,
           title: book.title,
@@ -48,8 +47,8 @@ export default function Books() {
         }));
         setBooks(booksData);
         setFilteredBooks(booksData);
-      } catch (error) {
-        console.error("Erro ao buscar livros:", error);
+      } catch  {
+        toast.error("Erro ao carregar os livros.");
       } finally {
         setIsLoading(false);
       }
@@ -81,7 +80,7 @@ export default function Books() {
     }
 
     setFilteredBooks(filtered);
-    setCurrentPage(0); // Resetar para primeira página após a busca
+    setCurrentPage(0);
   }, [search, category, availability, year, books]);
 
   // Lógica de paginação

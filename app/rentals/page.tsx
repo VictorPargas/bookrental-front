@@ -42,11 +42,8 @@ export default function RentalsManagement() {
       ]);
 
       setRentals(rentalsResponse.data);
-      console.log("rentals", rentalsResponse.data);
       setUsers(usersResponse.data);
-      console.log(usersResponse.data);
       setBooks(booksResponse.data);
-      console.log("livros",booksResponse.data);
     } catch  {
       toast.error("Erro ao carregar os dados.");
     } finally {

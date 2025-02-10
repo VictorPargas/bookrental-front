@@ -38,7 +38,6 @@ export default function BooksManagement() {
   const fetchBooks = async () => {
     try {
       const response = await api.getAllBooks();
-      console.log("response", response);
       const booksData: Book[] = response.data.map((book: BookApiResponse) => ({
         id: book.id,
         title: book.title,
@@ -51,7 +50,6 @@ export default function BooksManagement() {
         authorIds: book.authorIds,      // Assumindo que o backend retorna isso
       }));
       setBooks(booksData);
-      console.log(booksData);
     } catch  {
       toast.error("Erro ao carregar os livros.");
     } finally {
