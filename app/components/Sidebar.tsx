@@ -3,7 +3,6 @@
 import { JSX, useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useResponsive } from "../hooks/useResponsive";
 import { BiBook, BiChevronLeft, BiChevronRight, BiHome, BiSolidDashboard, BiUser } from "react-icons/bi";
 import Image from "next/image";
 import { IoSettingsOutline } from "react-icons/io5";
@@ -14,7 +13,7 @@ import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { BsPinAngle } from "react-icons/bs";
 
-export default function Sidebar() {
+export default function Sidebar({ isOpen, onClose, isMobile }: { isOpen: boolean, onClose: () => void, isMobile: boolean }) {
   const router = useRouter();
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
@@ -23,7 +22,6 @@ export default function Sidebar() {
   const [passwordData, setPasswordData] = useState<ChangePasswordParams>({ password: "", newPassword: "" });
   const [errors] = useState<string[]>([]);
   const pathname = usePathname();
-  const { isMobile } = useResponsive(); 
 
   useEffect(() => {
     fetchUserProfile();
@@ -66,49 +64,53 @@ export default function Sidebar() {
   };
 
   return (
-    <div 
-        className={`d-flex flex-column flex-shrink-0 text-white bg-dark shadow-sm ${isCollapsed ? "collapsed-sidebar" : "expanded-sidebar"}`}
-        style={{
-            width: isCollapsed ? "80px" : "280px",
-            transition: "width 0.3s ease",
-            overflow: "hidden",
+    <>
+      {isMobile && isOpen && (
+        <div
+          onClick={onClose}
+          style={{
+            position: 'fixed',
             top: 0,
             left: 0,
-            bottom: 0,
-            zIndex: 1000,
-            visibility: !isCollapsed && isMobile ? "hidden" : "visible",
+            width: '100%',
+            height: '100%',
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            zIndex: 999
+          }}
+        />
+      )}
+    <div 
+        className={`d-flex flex-column flex-shrink-0 text-white bg-dark shadow-sm 
+          ${isMobile ? (isOpen ? 'sidebar-open' : 'sidebar-closed') : (isCollapsed ? 'collapsed-sidebar' : 'expanded-sidebar')}
+        `}
+        style={{
+          width: isMobile ? '250px' : (isCollapsed ? '80px' : '280px'),
+          height: '100vh',
+          position: isMobile ? 'fixed' : 'relative',
+          top: 0,
+          left: isMobile ? (isOpen ? '0' : '-250px') : '0',
+          transition: 'left 0.3s ease-in-out, width 0.3s ease-in-out',
+          zIndex: 1000,
         }}
-    >
+      >
         <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
 
-        {/* Toggle Button */}
-        {isCollapsed ? (
-            <BiChevronRight
-                size={30}
-                onClick={() => setIsCollapsed(!isCollapsed)}
+        {!isMobile && (
+            <div onClick={() => setIsCollapsed(!isCollapsed)}
                 style={{
-                    position: 'fixed',
-                    top: '17px',
-                    marginLeft: isMobile ? 10 : 56,
-                    borderRadius: '50%',
-                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',
-                    backgroundColor: '#000',
+                position: 'fixed',
+                top: '17px',
+                left: isCollapsed ? '80px' : '280px',
+                borderRadius: '50%',
+                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',
+                backgroundColor: '#000',
+                zIndex: 1100,
+                cursor: 'pointer'
                 }}
-            />
-        ) : (
-            <BiChevronLeft
-                size={30}
-                onClick={() => setIsCollapsed(!isCollapsed)}
-                style={{
-                    position: 'fixed',
-                    top: "17px",
-                    marginLeft: 253,
-                    borderRadius: '50%',
-                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',
-                    backgroundColor: '#000',
-                }}
-            />
-        )}
+            >
+                {isCollapsed ? <BiChevronRight size={30} /> : <BiChevronLeft size={30} />}
+            </div>
+            )}
 
         <hr className="my-2 mx-3" />
 
@@ -245,17 +247,17 @@ export default function Sidebar() {
             </Modal.Body>
         </Modal>
     </div>
+    </>
   );
 }
 
 function SidebarItem({ href, icon, text, isCollapsed, pathname }: { href: string; icon: JSX.Element; text: string; isCollapsed: boolean; pathname: string }) {
     return (
       <Link 
-        className={`nav-link d-flex align-items-center py-2 px-3 ${
-            pathname === href ? "active bg-secondary rounded" : "text-light"}`}
-         href={href}>
+        href={href} 
+        className={`nav-link d-flex align-items-center py-2 ${pathname === href ? "active bg-secondary" : "text-light"}`}>
         {icon}
         {!isCollapsed && <span className="ms-2">{text}</span>}
       </Link>
     );
-}
+  } 

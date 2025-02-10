@@ -10,7 +10,6 @@ import { toast, ToastContainer } from "react-toastify";
 import api from "../utils/xhr";
 import "react-toastify/dist/ReactToastify.css";
 
-
 interface Author {
   id: number;
   name: string;
@@ -187,8 +186,8 @@ export default function BooksManagement() {
               <BsPencilFill size={16} />
             </Button>
           </OverlayTrigger>
-
-          {/* <OverlayTrigger placement="top" overlay={<Tooltip>Excluir</Tooltip>}>
+{/* 
+          <OverlayTrigger placement="top" overlay={<Tooltip>Excluir</Tooltip>}>
             <Button variant="danger" size="sm" onClick={() => handleDeleteBook(row.id)}>
               <BsTrashFill size={16} />
             </Button>
