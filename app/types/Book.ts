@@ -9,6 +9,7 @@ export interface Book {
   image?: string;  // URL da imagem do livro (opcional)
   publisherId?: number;
   authorIds?: number[];
+  isAvailable?: boolean;
 }
 
 
@@ -22,6 +23,7 @@ export interface BookApiResponse {
   authors: string[];
   publisherId?: number;
   authorIds?: number[];
+  isAvailable?: boolean;
 }
 
 export interface BookFilterCriteria {

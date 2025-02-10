@@ -6,5 +6,6 @@ export interface Rental {
     bookTitle: string;
     rentalDate: string;
     returnDate: string;
-    renewed: boolean;
+    rentalId: number;
+    status?: "Pendente" | "Devolvido";
   }

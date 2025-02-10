@@ -3,12 +3,11 @@
 import { JSX, useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { BarChart3 } from "lucide-react";
 import { useResponsive } from "../hooks/useResponsive";
 import { BiBook, BiChevronLeft, BiChevronRight, BiHome, BiSolidDashboard, BiUser } from "react-icons/bi";
 import Image from "next/image";
 import { IoSettingsOutline } from "react-icons/io5";
-import { ApiResponseError, ChangePasswordParams, UpdateUserParams, UserProfile } from "../types/user";
+import { ChangePasswordParams, UpdateUserParams, UserProfile } from "../types/user";
 import api from "../utils/xhr";
 import { Dropdown, Modal, Tabs, Tab, Form, Button, Alert } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
@@ -22,7 +21,7 @@ export default function Sidebar() {
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState<UpdateUserParams>({ name: "", profile: "", email: "" });
   const [passwordData, setPasswordData] = useState<ChangePasswordParams>({ password: "", newPassword: "" });
-  const [errors, setErrors] = useState<string[]>([]);
+  const [errors] = useState<string[]>([]);
   const pathname = usePathname();
   const { isMobile } = useResponsive(); 
 
@@ -46,9 +45,7 @@ export default function Sidebar() {
       toast.success("Perfil atualizado com sucesso!");
       setShowModal(false);
       fetchUserProfile();  // Atualiza o perfil após sucesso
-    } catch (error: any) {
-      const apiError = error.response.data as ApiResponseError;
-      setErrors(apiError.errors);
+    } catch {
       toast.error("Erro ao atualizar o perfil!");
     }
   };
@@ -58,9 +55,7 @@ export default function Sidebar() {
       await api.changePassword<ChangePasswordParams>(passwordData);
       toast.success("Senha alterada com sucesso!");
       setShowModal(false);
-    } catch (error: any) {
-      const apiError = error.response.data as ApiResponseError;
-      setErrors(apiError.errors);
+    } catch {
       toast.error("Erro ao alterar a senha!");
     }
   };
@@ -158,6 +153,13 @@ export default function Sidebar() {
                     />
                 </>
             )}
+            <SidebarItem 
+                href="/rentals/my" 
+                icon={<BiBook size={22} />} 
+                text="Meus Aluguéis" 
+                isCollapsed={isCollapsed} 
+                pathname={pathname} 
+            />
         </nav>
 
         <ul className="nav flex-column mt-auto gap-2">
@@ -168,7 +170,7 @@ export default function Sidebar() {
                     id="dropdown-user"
                 >
                 <Image
-                    src={"/avatar.jpg"}
+                    src={"/assets/user.png"}
                     alt={userProfile?.name || "Usuário"}
                     width={32}
                     height={32}

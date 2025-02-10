@@ -86,6 +86,9 @@ const returnRental = (rentalId: number): AxiosPromise =>
 
 const getAllRentals = (): AxiosPromise =>
     xhr.get('bookrental/all');
+
+const MyRentals = (): AxiosPromise =>
+    xhr.get('bookrental/my-rentals');
     
 
 
@@ -106,6 +109,7 @@ const api = {
     renewRental,
     returnRental,
     getAllRentals,
+    MyRentals,
 }
 
 export default api;

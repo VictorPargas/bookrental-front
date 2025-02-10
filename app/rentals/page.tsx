@@ -10,22 +10,45 @@ import api from "../utils/xhr";
 import "react-toastify/dist/ReactToastify.css";
 import { Rental } from "../types/Rental";
 
+interface User {
+  id: number;
+  name: string;
+  email?: string;
+}
+
+interface Book {
+  id: number;
+  title: string;
+}
+
 
 export default function RentalsManagement() {
   const [rentals, setRentals] = useState<Rental[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
+  const [books, setBooks] = useState<Book[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    fetchRentals();
+    fetchAllData();
   }, []);
 
-  const fetchRentals = async () => {
+  const fetchAllData = async () => {
     try {
-      const response = await api.getAllRentals();
-      setRentals(response.data);
-    } catch (error) {
-      toast.error("Erro ao carregar as locações.");
+      const [rentalsResponse, usersResponse, booksResponse] = await Promise.all([
+        api.getAllRentals(),
+        api.getAllUsers(),
+        api.getAllBooks(),
+      ]);
+
+      setRentals(rentalsResponse.data);
+      console.log("rentals", rentalsResponse.data);
+      setUsers(usersResponse.data);
+      console.log(usersResponse.data);
+      setBooks(booksResponse.data);
+      console.log("livros",booksResponse.data);
+    } catch  {
+      toast.error("Erro ao carregar os dados.");
     } finally {
       setIsLoading(false);
     }
@@ -35,8 +58,8 @@ export default function RentalsManagement() {
     try {
       await api.renewRental(rentalId, {});
       toast.success("Locação renovada com sucesso!");
-      fetchRentals();
-    } catch (error) {
+      fetchAllData();
+    } catch {
       toast.error("Erro ao renovar a locação.");
     }
   };
@@ -45,13 +68,26 @@ export default function RentalsManagement() {
     try {
       await api.returnRental(rentalId);
       toast.success("Livro devolvido com sucesso!");
-      fetchRentals();
-    } catch (error) {
+      fetchAllData();
+    } catch {
       toast.error("Erro ao devolver o livro.");
     }
   };
 
-  const filteredRentals = rentals.filter(
+  // Mapeia os nomes dos usuários e títulos dos livros para cada locação
+  const enrichedRentals = rentals.map((rental) => {
+    const user = users.find((u) => u.name === rental.userName);
+    const book = books.find((b) => b.id === rental.bookId);
+
+    return {
+      ...rental,
+      userName: user ? user.name : "Usuário não encontrado",
+      bookTitle: book?.title || "Livro não encontrado",
+    };
+  });
+
+
+  const filteredRentals = enrichedRentals.filter(
     (rental) =>
       rental.userName.toLowerCase().includes(search.toLowerCase()) ||
       rental.bookTitle.toLowerCase().includes(search.toLowerCase())
@@ -60,7 +96,7 @@ export default function RentalsManagement() {
   const columns = [
     {
       name: "ID",
-      selector: (row: Rental) => row.id,
+      selector: (row: Rental) => row.userId,
       sortable: true,
     },
     {
@@ -87,15 +123,15 @@ export default function RentalsManagement() {
       name: "Ações",
       cell: (row: Rental) => (
         <div className="d-flex gap-2">
-          {!row.renewed && (
+          {row.status === "Pendente" && (
             <OverlayTrigger placement="top" overlay={<Tooltip>Renovar Locação</Tooltip>}>
-              <Button variant="info" size="sm" onClick={() => handleRenewRental(row.id)}>
+              <Button variant="info" size="sm" onClick={() => handleRenewRental(row.rentalId)}>
                 <BsArrowRepeat size={16} />
               </Button>
             </OverlayTrigger>
           )}
           <OverlayTrigger placement="top" overlay={<Tooltip>Devolver Livro</Tooltip>}>
-            <Button variant="danger" size="sm" onClick={() => handleReturnRental(row.id)}>
+            <Button variant="danger" size="sm" onClick={() => handleReturnRental(row.rentalId)}>
               <BsBoxArrowLeft size={16} />
             </Button>
           </OverlayTrigger>

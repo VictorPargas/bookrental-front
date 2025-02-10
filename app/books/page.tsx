@@ -35,6 +35,7 @@ export default function Books() {
     const fetchBooks = async () => {
       try {
         const response = await api.getAllBooks();
+        console.log("response", response);
         const booksData: Book[] = response.data.map((book: BookApiResponse) => ({
           id: book.id,
           title: book.title,
@@ -43,6 +44,7 @@ export default function Books() {
           quantity: book.quantityAvailable,
           publisher: book.publisherName,
           authors: book.authors.join(", "), 
+          isAvailable: book.isAvailable,
         }));
         setBooks(booksData);
         setFilteredBooks(booksData);
@@ -198,10 +200,10 @@ export default function Books() {
                           className="book-image"
                         />
                         <Badge 
-                          bg={book.quantity > 0 ? "success" : "danger"} 
+                          bg={book.isAvailable ? "success" : "danger"} 
                           className="position-absolute top-0 start-0 m-2"
                         >
-                          {book.quantity > 0 ? "Disponível" : "Indisponível"}
+                          {book.isAvailable ? "Disponível" : "Indisponível"}
                         </Badge>
                       </div>
                       <Card.Body className="text-center d-flex flex-column">
