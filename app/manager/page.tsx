@@ -1,22 +1,30 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import DataTable from "react-data-table-component";
 import { Button, Modal, Form, OverlayTrigger, Tooltip, InputGroup } from "react-bootstrap";
-import { BsTrashFill, BsPencilFill, BsPlusLg } from "react-icons/bs";
+import { BsPencilFill, BsPlusLg } from "react-icons/bs";
 import { SkeletonTable } from "@/app/components/SkeletonTable";
-import { Book, BookApiResponse, Author, Publisher } from "@/app/types/Book";
+import { Book, BookApiResponse } from "@/app/types/Book";
 import { toast, ToastContainer } from "react-toastify";
 import api from "../utils/xhr";
 import "react-toastify/dist/ReactToastify.css";
-import { number } from "yup";
+
+
+interface Author {
+  id: number;
+  name: string;
+}
+
+interface Publisher {
+  id: number;
+  name: string;
+}
 
 export default function BooksManagement() {
   const [books, setBooks] = useState<Book[]>([]);
   const [authors, setAuthors] = useState<Author[]>([]);
   const [publishers, setPublishers] = useState<Publisher[]>([]);
-  const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   const [showModal, setShowModal] = useState(false);
@@ -45,7 +53,7 @@ export default function BooksManagement() {
       }));
       setBooks(booksData);
       console.log(booksData);
-    } catch (error) {
+    } catch  {
       toast.error("Erro ao carregar os livros.");
     } finally {
       setIsLoading(false);
@@ -61,7 +69,7 @@ export default function BooksManagement() {
 
       setAuthors(authorsResponse.data);
       setPublishers(publishersResponse.data);
-    } catch (error) {
+    } catch  {
       toast.error("Erro ao carregar autores e editoras.");
     }
   };
@@ -87,7 +95,7 @@ export default function BooksManagement() {
       setAuthors((prev) => [...prev, response.data]);
       setNewAuthor("");
       toast.success("Autor adicionado com sucesso!");
-    } catch (error) {
+    } catch  {
       toast.error("Erro ao adicionar autor.");
     }
   };
@@ -98,7 +106,7 @@ export default function BooksManagement() {
       setPublishers((prev) => [...prev, response.data]);
       setNewPublisher("");
       toast.success("Editora adicionada com sucesso!");
-    } catch (error) {
+    } catch  {
       toast.error("Erro ao adicionar editora.");
     }
   };
@@ -180,11 +188,11 @@ export default function BooksManagement() {
             </Button>
           </OverlayTrigger>
 
-          <OverlayTrigger placement="top" overlay={<Tooltip>Excluir</Tooltip>}>
+          {/* <OverlayTrigger placement="top" overlay={<Tooltip>Excluir</Tooltip>}>
             <Button variant="danger" size="sm" onClick={() => handleDeleteBook(row.id)}>
               <BsTrashFill size={16} />
             </Button>
-          </OverlayTrigger>
+          </OverlayTrigger> */}
         </div>
       ),
     },

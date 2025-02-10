@@ -31,7 +31,7 @@ export default function UserManagement() {
     try {
       const response = await api.getAllUsers();
       setUsers(response.data);
-    } catch (error) {
+    } catch {
       toast.error("Erro ao carregar os usuários.");
     } finally {
       setIsLoading(false);
@@ -62,7 +62,7 @@ export default function UserManagement() {
         }
         fetchUsers();
         handleCloseModal();
-      } catch (error) {
+      } catch  {
         toast.error("Erro ao salvar o usuário.");
       }
     }

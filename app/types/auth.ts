@@ -1,10 +1,3 @@
-interface Settings {
-  id: number
-  createdAt: string
-  maxTime: string
-  minTime: string
-  updatedAt: string
-}
 
 export interface ResultLogin {
   name: string;
